@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shotbybenard - Photography Blog</title>
+  <style>
+    /* Default Light Theme (using CSS variables) */
+    :root {
+      --bg-color: #f5f5f5;
+      --text-color: #333;
+      --card-bg: #fff;
+      --header-bg: #111;
+      --header-text: #fff;
+      --button-bg: #111;
+      --button-text: #fff;
+      --button-hover: #444;
+    }
+    /* Dark Theme */
+    .dark-mode {
+      --bg-color: #181818;
+      --text-color: #f5f5f5;
+      --card-bg: #242424;
+      --header-bg: #000;
+      --header-text: #f5f5f5;
+      --button-bg: #333;
+      --button-text: #f5f5f5;
+      --button-hover: #555;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: all 0.3s ease;
+    }
+    header {
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    nav {
+      margin-top: 10px;
+    }
+    nav a {
+      color: var(--header-text);
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    /* Hamburger Button */
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      position: absolute;
+      top: 20px;
+      right: 60px;
+    }
+    /* Theme Toggle Button */
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--button-bg);
+      color: var(--button-text);
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+    .theme-toggle:hover {
+      background: var(--button-hover);
+    }
+    /* Container Sections */
+    .container {
+      width: 80%;
+      margin: auto;
+      overflow: hidden;
+      padding: 20px;
+    }
+    .bio, .work, .gallery, .contact {
+      background: var(--card-bg);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: background 0.3s;
+    }
+    h2 {
+      color: var(--text-color);
+    }
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .gallery-grid img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+    }
+    /* Lightbox Styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .lightbox:target {
+      display: flex;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      color: #fff;
+      text-decoration: none;
+    }
+    /* Contact Buttons */
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    .contact-links a {
+      display: inline-block;
+      padding: 10px 20px;
+      background: var(--button-bg);
+      color: var(--button-text);
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .contact-links a:hover {
+      background: var(--button-hover);
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: var(--header-bg);
+      color: var(--header-text);
+      margin-top: 20px;
+    }
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background: #222;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 15px;
+      }
+      nav a {
+        display: block;
+        margin: 10px 0;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      nav.show {
+        display: flex;
+      }
+      .container {
+        width: 95%;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Shotbybenard</h1>
+    <span class="menu-toggle">☰</span>
+    <button class="theme-toggle">🌙</button>
+    <nav>
+      <a href="#bio">Biography</a>
+      <a href="#work">My Work</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <section id="bio" class="bio">
+      <h2>About Me</h2>
+      <p>Hello! I’m <strong>Benard</strong>, a passionate photographer known as <em>Shotbybenard</em>. 
+      My journey into photography started with a simple love for capturing moments, emotions, 
+      and stories through the lens. Over the years, I’ve developed a style that blends 
+      creativity with authenticity, ensuring every shot speaks for itself.</p>
+    </section>
+
+    <section id="work" class="work">
+      <h2>My Photography Work</h2>
+      <p>I specialize in:</p>
+      <ul>
+        <li>Portrait Photography – capturing personalities in natural and studio settings.</li>
+        <li>Event Photography – freezing special moments at weddings, parties, and corporate events.</li>
+        <li>Street & Lifestyle Photography – telling stories of everyday life through candid shots.</li>
+        <li>Creative Projects – experimenting with light, shadows, and artistic compositions.</li>
+      </ul>
+      <p>Through my lens, I aim to create timeless images that not only capture beauty but also emotions and memories worth keeping forever.</p>
+    </section>
+
+    <section id="gallery" class="gallery">
+      <h2>Photography Gallery</h2>
+      <p>A glimpse of some of my favorite captures:</p>
+      <div class="gallery-grid">
+        <a href="#img1"><img src="c:\Users\BISHOPD\Desktop\Screenshot_20250330-095442_Instagram.jpg" alt="Portrait sample"></a>
+        <a href="#img2"><img src="c:\Users\BISHOPD\Desktop\Screenshot_20250821-055456_Instagram.jpg" alt="Event sample"></a>
+        <a href="#img3"><img src="c:\Users\BISHOPD\Desktop\Screenshot_20250109-140345_Instagram.jpg" alt="Street sample"></a>
+        <a href="#img4"><img src="c:\Users\BISHOPD\Desktop\Screenshot_20250330-095442_Instagram.jpg" alt="Lifestyle sample"></a>
+        <a href="#img5"><img src="c:\Users\BISHOPD\Desktop\Screenshot_20250821-055604_Instagram.jpg" alt="Creative sample"></a>
+        <a href="#img6"><img src="c:\Users\BISHOPD\Desktop\Screenshot_20250821-055517_Instagram.jpg" alt="Wedding sample"></a>
+      </div>
+    </section>
+
+    <!-- Lightbox Overlays -->
+    <div id="img1" class="lightbox">
+      <a href="#" class="lightbox-close">&times;</a>
+      <img src="c:\Users\BISHOPD\Desktop\Screenshot_20250330-095442_Instagram.jpg" alt="Portrait sample large">
+    </div>
+    <div id="img2" class="lightbox">
+      <a href="#" class="lightbox-close">&times;</a>
+      <img src="c:\Users\BISHOPD\Desktop\Screenshot_20250821-055456_Instagram.jpg" alt="Event sample large">
+    </div>
+    <div id="img3" class="lightbox">
+      <a href="#" class="lightbox-close">&times;</a>
+      <img src="c:\Users\BISHOPD\Desktop\Screenshot_20250109-140345_Instagram.jpg" alt="Street sample large">
+    </div>
+    <div id="img4" class="lightbox">
+      <a href="#" class="lightbox-close">&times;</a>
+      <img src="c:\Users\BISHOPD\Desktop\Screenshot_20250330-095442_Instagram.jpg" alt="Lifestyle sample large">
+    </div>
+    <div id="img5" class="lightbox">
+      <a href="#" class="lightbox-close">&times;</a>
+      <img src="c:\Users\BISHOPD\Desktop\Screenshot_20250821-055604_Instagram.jpg" alt="Creative sample large">
+    </div>
+    <div id="img6" class="lightbox">
+      <a href="#" class="lightbox-close">&times;</a>
+      <img src="c:\Users\BISHOPD\Desktop\Screenshot_20250821-055517_Instagram.jpg" alt="Wedding sample large">
+    </div>
+
+    <section id="contact" class="contact">
+      <h2>Contact Me</h2>
+      <p>If you'd like to book a session, collaborate, or just say hello, feel free to reach out:</p>
+      <div class="contact-links">
+        <a href="https://www.instagram.com/shotbybenard" target="_blank">📸 Instagram</a>
+        <a href="https://www.facebook.com/shotbybenard" target="_blank">📘 Facebook</a>
+        <a href="mailto:shotbybenard@email.com">✉️ Email Me</a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2025 Shotbybenard | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    const menuToggle = document.querySelector(".menu-toggle");
+    const nav = document.querySelector("nav");
+    menuToggle.addEventListener("click", () => {
+      nav.classList.toggle("show");
+    });
+
+    // Theme Toggle
+    const themeBtn = document.querySelector(".theme-toggle");
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      themeBtn.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+    });
+  </script>
+</body>
+</html>
